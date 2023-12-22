@@ -8,9 +8,9 @@ public class Merchant extends User{
 
     private ArrayList<Product> products = new ArrayList<>();
 
-    public Merchant(int id, int tipo, String nomeCompleto, String nomeUsuario, String senha, String saldo, Product product) {
-        super(id, tipo, nomeCompleto, nomeUsuario, senha, saldo);
-        this.products.add(product);
+    public Merchant(int id, int type, String fullName, String userName, String password, double balance, ArrayList<Product> products) {
+        super(id, type, fullName, userName, password, balance);
+        this.products = products;
     }
 
     public ArrayList<Product> getProducts() {
@@ -22,6 +22,6 @@ public class Merchant extends User{
     }
 
     public void sell(float valor) {
-        this.setSaldo(this.getSaldo() + valor);
+        this.setBalance(this.getBalance() + valor);
     }
 }
