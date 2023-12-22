@@ -3,19 +3,19 @@ package user.model;
 public abstract class User {
 
     private int id;
-    private int tipo;
-    private String nomeCompleto;
-    private String nomeUsuario;
-    private String senha;
-    private String saldo;
+    private int type;
+    private String fullName;
+    private String userName;
+    private String password;
+    private double balance;
 
-    public User(int id, int tipo, String nomeCompleto, String nomeUsuario, String senha, String saldo) {
+    public User(int id, int type, String fullName, String userName, String password, double balance) {
         this.id = id;
-        this.tipo = tipo;
-        this.nomeCompleto = nomeCompleto;
-        this.nomeUsuario = nomeUsuario;
-        this.senha = senha;
-        this.saldo = saldo;
+        this.type = type;
+        this.fullName = fullName;
+        this.userName = userName;
+        this.password = password;
+        this.balance = balance;
     }
 
     public int getId() {
@@ -26,49 +26,49 @@ public abstract class User {
         this.id = id;
     }
 
-    public int getTipo() {
-        return tipo;
+    public int getType() {
+        return type;
     }
 
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
+    public void setType(int type) {
+        this.type = type;
     }
 
-    public String getNomeCompleto() {
-        return nomeCompleto;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setNomeCompleto(String nomeCompleto) {
-        this.nomeCompleto = nomeCompleto;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getNomeUsuario() {
-        return nomeUsuario;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setNomeUsuario(String nomeUsuario) {
-        this.nomeUsuario = nomeUsuario;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getSaldo() {
-        return saldo;
+    public double getBalance() {
+        return balance;
     }
 
-    public void setSaldo(String saldo) {
-        this.saldo = saldo;
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     public void displayUserInfo() {
 
-        String tipo = switch (this.tipo) {
+        String tipo = switch (this.type) {
             case 1 -> "Conta Cliente";
             case 2 -> "Conta Lojista";
             default -> "";
@@ -78,9 +78,9 @@ public abstract class User {
         System.out.println("Dados da Conta:");
         System.out.println("***********************************************************");
         System.out.println("ID da Conta: " + this.id);
-        System.out.println("Nome Completo: " + this.nomeCompleto);
+        System.out.println("Nome Completo: " + this.fullName);
         System.out.println("Tipo da Conta: " + tipo);
-        System.out.println("Nome de usuário: " + this.nomeUsuario);
-        System.out.println("Saldo: " + this.saldo);
+        System.out.println("Nome de usuário: " + this.userName);
+        System.out.println("Saldo: " + this.balance);
     }
 }
