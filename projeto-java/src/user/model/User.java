@@ -66,11 +66,7 @@ public abstract class User {
         this.saldo = saldo;
     }
 
-    public void comprar(float valor) {
-        this.setSaldo(this.getSaldo() + valor);
-    }
-
-    public void visualizar() {
+    public void displayUserInfo() {
 
         String tipo = switch (this.tipo) {
             case 1 -> "Conta Cliente";
