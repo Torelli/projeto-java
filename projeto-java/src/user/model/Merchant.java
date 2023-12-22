@@ -21,7 +21,7 @@ public class Merchant extends User{
         this.products = products;
     }
 
-    public void sell(float valor) {
-        this.setBalance(this.getBalance() + valor);
+    public void sell(float value) {
+        this.setBalance(this.getBalance() + value);
     }
 }
