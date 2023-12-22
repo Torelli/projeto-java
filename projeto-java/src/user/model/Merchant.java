@@ -4,7 +4,7 @@ import products.model.Product;
 
 import java.util.ArrayList;
 
-public class Merchant extends User{
+public class Merchant extends User {
 
     private ArrayList<Product> products = new ArrayList<>();
 
@@ -13,15 +13,18 @@ public class Merchant extends User{
         this.products = products;
     }
 
+    @Override
     public ArrayList<Product> getProducts() {
         return products;
     }
 
+    @Override
     public void setProducts(ArrayList<Product> products) {
         this.products = products;
     }
 
-    public void sell(float value) {
+    @Override
+    public void sell(double value) {
         this.setBalance(this.getBalance() + value);
     }
 }

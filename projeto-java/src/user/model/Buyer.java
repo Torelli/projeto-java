@@ -6,12 +6,12 @@ public class Buyer extends User{
         super(id, type, fullName, userName, password, balance);
     }
 
-    public boolean buy(float value) {
+    @Override
+    public boolean buy(double value) {
         if(this.getBalance() < value) {
             System.out.println("\nSaldo Insuficiente!");
             return false;
         }
-
         this.setBalance(this.getBalance() - value);
         return true;
     }

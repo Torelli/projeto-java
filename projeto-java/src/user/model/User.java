@@ -1,5 +1,9 @@
 package user.model;
 
+import products.model.Product;
+
+import java.util.ArrayList;
+
 public abstract class User {
 
     private int id;
@@ -11,6 +15,14 @@ public abstract class User {
 
     public User(int id, int type, String fullName, String userName, String password, double balance) {
         this.id = id;
+        this.type = type;
+        this.fullName = fullName;
+        this.userName = userName;
+        this.password = password;
+        this.balance = balance;
+    }
+
+    public User(int type, String fullName, String userName, String password, double balance) {
         this.type = type;
         this.fullName = fullName;
         this.userName = userName;
@@ -64,6 +76,21 @@ public abstract class User {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public ArrayList<Product> getProducts() {
+        return null;
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+    }
+
+
+    public boolean buy(double value) {
+        return false;
+    }
+
+    public void sell(double value) {
     }
 
     public void displayUserInfo() {
