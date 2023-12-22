@@ -73,15 +73,15 @@ public class UserController implements UserRepository {
             }
 
             if (buyedProduct != null) {
-                if (buyedProduct.getQuantity() < quantitity) System.out.println("Quantidade maior que no estoque!");
+                if (buyedProduct.getQuantity() < quantitity) System.out.println("\nQuantidade maior que no estoque!\n");
                 else {
-                    buyer.buy(value);
+                    buyer.buy(value * quantitity);
                     productController.sell(userController, receiverId, buyedProduct, quantitity);
-                    merchant.sell(value);
-                    System.out.println("Compra realizada com sucesso");
+                    merchant.sell(value * quantitity);
+                    System.out.println("\nCompra realizada com sucesso\n");
                 }
             } else {
-                System.out.println("Produto não encontrado!");
+                System.out.println("\nProduto não encontrado!\n");
             }
 
         }
@@ -105,6 +105,18 @@ public class UserController implements UserRepository {
             }
         }
         return null;
+    }
+
+    public void findAllMerchants() {
+        for(var user : users) {
+            if (user.getType() == 2) {
+                System.out.println(user.getId() + " - " + user.getFullName());
+            }
+        }
+    }
+
+    public void logoff() {
+        loggedUser = null;
     }
 
     private User findUserByUserNameAndPassword(String userName, String password) {
