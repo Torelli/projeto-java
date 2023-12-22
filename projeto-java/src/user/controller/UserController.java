@@ -1,5 +1,6 @@
 package user.controller;
 
+import products.controller.ProductController;
 import products.model.Product;
 import user.model.User;
 import user.repository.UserRepository;
@@ -14,6 +15,10 @@ public class UserController implements UserRepository {
     int newId = 0;
 
 
+    public User getLoggedUser() {
+        return loggedUser;
+    }
+
     @Override
     public void signUp(User user) {
         users.add(user);
@@ -24,8 +29,16 @@ public class UserController implements UserRepository {
     public void login(String userName, String password) {
         var user = findUserByUserNameAndPassword(userName, password);
 
-        if (user != null) System.out.println("Olá, " + user.getFullName() + "!");
-        else System.out.println("Seu nome de usuário ou senha estão incorretos");
+        if (user != null) {
+            loggedUser = user;
+            System.out.println("Olá, " + user.getFullName() + "!");
+        } else System.out.println("Seu nome de usuário ou senha estão incorretos");
+    }
+
+    @Override
+    public void viewAccount() {
+        if (loggedUser != null) loggedUser.displayUserInfo();
+        else System.out.println("Você deve estar logado para fazer isso!");
     }
 
     @Override
@@ -44,40 +57,41 @@ public class UserController implements UserRepository {
     }
 
     @Override
-    public void transfer(int senderId, int receiverId, double value, int productId, int quantitity) {
+    public void transfer(ProductController productController, UserController userController, int senderId, int receiverId, double value, int productId, int quantitity) {
         var buyer = findUserById(senderId);
         var merchant = findUserById(receiverId);
 
         if (buyer != null && merchant != null) {
-            if (buyer.buy(value)) {
-                var products = merchant.getProducts();
-                Product buyedProduct = null;
 
-                for (var product : products) {
-                    if (product.getId() == productId) {
-                        buyedProduct = product;
-                    }
-                }
+            var products = merchant.getProducts();
+            Product buyedProduct = null;
 
-                if (buyedProduct != null) {
-                    if (buyedProduct.getQuantity() > quantitity) System.out.println("Quantidade maior que no estoque!");
-                    //else {
-                    // ProductController.sell(merchantId, buyedProduct, quantitity);
-                    // merchant.sell(value);
-                    // System.out.println("Compra realizada com sucesso");
-                    // }
-                } else {
-                    System.out.println("Produto não encontrado!");
+            for (var product : products) {
+                if (product.getId() == productId) {
+                    buyedProduct = product;
                 }
             }
+
+            if (buyedProduct != null) {
+                if (buyedProduct.getQuantity() < quantitity) System.out.println("Quantidade maior que no estoque!");
+                else {
+                    buyer.buy(value);
+                    productController.sell(userController, receiverId, buyedProduct, quantitity);
+                    merchant.sell(value);
+                    System.out.println("Compra realizada com sucesso");
+                }
+            } else {
+                System.out.println("Produto não encontrado!");
+            }
+
         }
     }
 
-    public void addProduct(Product product) {
+    public void addProduct(Product product, ProductController productController) {
         if (loggedUser.getType() == 2) {
             var products = loggedUser.getProducts();
             products.add(product);
-            //ProductController.addProduct(product);
+            productController.addProduct(product);
             loggedUser.setProducts(products);
         } else {
             System.out.println("Você deve ser um lojista para adicionar um produto!");

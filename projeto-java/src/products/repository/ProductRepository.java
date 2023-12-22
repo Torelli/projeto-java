@@ -5,6 +5,8 @@ import user.controller.UserController;
 
 public interface ProductRepository {
 
+    public void addProduct(Product product);
+
     public void findById(int id);
 
     public void findAll(UserController userController);

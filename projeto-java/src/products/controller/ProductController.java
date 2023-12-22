@@ -12,6 +12,11 @@ public class ProductController implements ProductRepository {
     int newId = 0;
 
     @Override
+    public void addProduct(Product product) {
+        allProducts.add(product);
+    }
+
+    @Override
     public void findById(int id) {
         var product = searchAllProductsById(id);
 
@@ -23,8 +28,8 @@ public class ProductController implements ProductRepository {
     public void findAll(UserController userController) {
         for (var product : allProducts) {
             var store = userController.findUserById(product.getMerchantId());
-            System.out.println("|  ID  |  Nome do Produto | Quantidade | Loja  |");
-            System.out.println("|  " + product.getId() + "  |  " + product.getName() + "  |  " + product.getQuantity() + "  |  " + store.getFullName() + "  |");
+            System.out.println("|\tID\t|\tNome do Produto\t\t\t|\tQuantidade\t|\tLoja\t\t|");
+            System.out.println("|\t" + product.getId() + "\t|\t" + product.getName() + "\t|\t\t" + product.getQuantity() + "\t\t|\t" + store.getFullName() + "\t|");
         }
     }
 
@@ -32,8 +37,8 @@ public class ProductController implements ProductRepository {
     public void findAllByMerchant(int merchantId) {
         for (var product : allProducts) {
             if (product.getMerchantId() == merchantId) {
-                System.out.println("|  ID  |  Nome do Produto | Quantidade |");
-                System.out.println("|  " + product.getId() + "  |  " + product.getName() + "  |  " + product.getQuantity() + "  |");
+                System.out.println("|\tID\t|\tNome do Produto\t\t\t|\tQuantidade\t|");
+                System.out.println("|\t" + product.getId() + "\t|\t" + product.getName() + "\t|\t\t" + product.getQuantity() + "\t\t|");
             }
         }
     }
