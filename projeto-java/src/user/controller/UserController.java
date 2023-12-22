@@ -62,7 +62,7 @@ public class UserController implements UserRepository {
                 if (buyedProduct != null) {
                     if (buyedProduct.getQuantity() > quantitity) System.out.println("Quantidade maior que no estoque!");
                     //else {
-                    // ProductController.sell(buyedProduct, quantitity);
+                    // ProductController.sell(merchantId, buyedProduct, quantitity);
                     // merchant.sell(value);
                     // System.out.println("Compra realizada com sucesso");
                     // }
@@ -73,7 +73,18 @@ public class UserController implements UserRepository {
         }
     }
 
-    private User findUserById(int id) {
+    public void addProduct(Product product) {
+        if (loggedUser.getType() == 2) {
+            var products = loggedUser.getProducts();
+            products.add(product);
+            //ProductController.addProduct(product);
+            loggedUser.setProducts(products);
+        } else {
+            System.out.println("Você deve ser um lojista para adicionar um produto!");
+        }
+    }
+
+    public User findUserById(int id) {
         for (var user : users) {
             if (user.getId() == id) {
                 return user;
@@ -90,5 +101,9 @@ public class UserController implements UserRepository {
             }
         }
         return userFound;
+    }
+
+    public int generateId() {
+        return ++newId;
     }
 }
